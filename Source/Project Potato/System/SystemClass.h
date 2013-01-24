@@ -4,9 +4,9 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <Windows.h>
+#include "../Input/InputClass.h"
+#include "../Graphics/GraphicsClass.h"
 
-
-static SystemClass *ApplicationHandle = 0;
 
 class SystemClass
 {
@@ -34,6 +34,13 @@ private:
 	InputClass *m_Input;
 	GraphicsClass *m_Graphics;
 
-}
+};
+
+// Globals
+static SystemClass *ApplicationHandle = 0;
+
+// Function Prototypes0
+static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
 
 #endif

@@ -1,6 +1,5 @@
 #include "SystemClass.h"
 
-
 SystemClass::SystemClass()
 {
 	m_Input = 0;
@@ -31,6 +30,8 @@ bool SystemClass::Initialize()
 		return false;
 	}
 
+	m_Input->Initialize();
+
 	m_Graphics = new GraphicsClass;
 	
 	if(!m_Graphics)
@@ -59,7 +60,6 @@ void SystemClass::Shutdown()
 
 	if(m_Input)
 	{
-		m_Input->Shutdown();
 		delete m_Input;
 		m_Input = 0;
 	}
@@ -168,7 +168,7 @@ void SystemClass::InitializeWindows(int &_ScreenWidth, int &_ScreenHeight)
 	WindowClass.lpszClassName = m_ApplicationName;
 	WindowClass.cbSize = sizeof(WNDCLASSEX);
 
-	RegisterClass(&WindowClass);
+	RegisterClassEx(&WindowClass);
 
 	_ScreenWidth = GetSystemMetrics(SM_CXSCREEN);
 	_ScreenHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -207,3 +207,43 @@ void SystemClass::InitializeWindows(int &_ScreenWidth, int &_ScreenHeight)
 	ShowCursor(false);
 }
 
+void SystemClass::ShutdownWindows()
+{
+	ShowCursor(true);
+
+	if(FULL_SCREEN)
+	{
+		ChangeDisplaySettings(NULL,0);
+	}
+
+	DestroyWindow(m_WindowHandle);
+	m_WindowHandle = NULL;
+
+	UnregisterClass(m_ApplicationName, m_Instance);
+	m_Instance = NULL;
+
+	ApplicationHandle = NULL;
+
+	return;
+}
+
+LRESULT CALLBACK WndProc(HWND _Handle, UINT _Message, WPARAM _WParam, LPARAM _LParam)
+{
+	switch(_Message)
+	{
+	case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
+	case WM_CLOSE:
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
+	default:
+		{
+			return ApplicationHandle->MessageHandler(_Handle, _Message, _WParam, _LParam);
+		}
+	}
+}

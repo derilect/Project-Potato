@@ -3,6 +3,7 @@
 int WINAPI WinMain(HINSTANCE _Instance, HINSTANCE _PrevInstance, PSTR _CommandLine, int _CommandShow)
 {
 	bool Result;
+	SystemClass *System;
 
 	System = new SystemClass;
 
