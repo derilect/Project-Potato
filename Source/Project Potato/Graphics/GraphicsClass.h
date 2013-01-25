@@ -1,7 +1,7 @@
 #ifndef _GRAPHICSCLASS_H
 #define _GRAPHICSCLASS_H
 
-#include "D3DClass.h"
+#include "../D3DClass/D3DClass.h"
 #include <Windows.h>
 
 const bool FULL_SCREEN = false;

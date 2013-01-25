@@ -269,7 +269,7 @@ bool D3DClass::Initialize(int _ScreenWidth, int _ScreenHeight, bool _VSync, HWND
 	m_DeviceContext->RSSetViewports(1, &ViewPort);
 
 	FOV = (float)D3DX_PI / 4.0f;
-	ScreenAspect = (float)_ScreenWidth / (float) _ScreenHeight);
+	ScreenAspect = (float)_ScreenWidth / (float) _ScreenHeight;
 	D3DXMatrixPerspectiveFovLH(&m_ProjectionMatrix, FOV, ScreenAspect, _ScreenNear, _ScreenDepth);
 	D3DXMatrixIdentity(&m_WorldMatrix);
 	D3DXMatrixOrthoLH(&m_OrthoMatrix, (float)_ScreenWidth, (float)_ScreenHeight, _ScreenNear, _ScreenDepth);
@@ -277,7 +277,7 @@ bool D3DClass::Initialize(int _ScreenWidth, int _ScreenHeight, bool _VSync, HWND
 }
 
 
-D3DClass::Shutdown()
+void D3DClass::Shutdown()
 {
 	if(m_SwapChain)
 	{
@@ -346,7 +346,7 @@ bool D3DClass::BeginScene(float _Red, float _Green, float _Blue, float _Alpha)
 	m_DeviceContext->ClearRenderTargetView(m_RenderTargetView, Color);
 	m_DeviceContext->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	return;
+	return true;
 }
 
 void D3DClass::EndScene()
@@ -358,7 +358,7 @@ void D3DClass::EndScene()
 
 	else
 	{
-		m_SwapChain->Present(0,0,);
+		m_SwapChain->Present(0,0);
 	}
 	return;
 }
