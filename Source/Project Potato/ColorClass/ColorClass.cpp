@@ -98,12 +98,14 @@ bool ColorShaderClass::InitializeShader(ID3D11Device *_Device, HWND _Hwnd, WCHAR
 	Result = _Device->CreateVertexShader(VertexShaderBuffer->GetBufferPointer(), VertexShaderBuffer->GetBufferSize(), NULL, &m_VertexShader);
 	if(FAILED(Result))
 	{
+		MessageBox(_Hwnd,L"Error Creating Vertex Shader.", L"Error", MB_OK);
 		return false;
 	}
 
 	Result = _Device->CreatePixelShader(PixelShaderBuffer->GetBufferPointer(), PixelShaderBuffer->GetBufferSize(), NULL, &m_PixelShader);
 	if(FAILED(Result))
 	{
+		MessageBox(_Hwnd,L"Error Creating Pixel Shader.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -115,18 +117,19 @@ bool ColorShaderClass::InitializeShader(ID3D11Device *_Device, HWND _Hwnd, WCHAR
 	PolygonLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	PolygonLayout[0].InstanceDataStepRate = 0;
 
-	PolygonLayout[0].SemanticName = "COLOR";
-	PolygonLayout[0].SemanticIndex = 0;
-	PolygonLayout[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	PolygonLayout[0].InputSlot = 0;
-	PolygonLayout[0].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-	PolygonLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-	PolygonLayout[0].InstanceDataStepRate = 0;
+	PolygonLayout[1].SemanticName = "COLOR";
+	PolygonLayout[1].SemanticIndex = 0;
+	PolygonLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	PolygonLayout[1].InputSlot = 0;
+	PolygonLayout[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	PolygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	PolygonLayout[1].InstanceDataStepRate = 0;
 
 	NumElements = sizeof(PolygonLayout) / sizeof(PolygonLayout[0]);
 	Result = _Device->CreateInputLayout(PolygonLayout, NumElements, VertexShaderBuffer->GetBufferPointer(), VertexShaderBuffer->GetBufferSize(), &m_Layout);
 	if(FAILED(Result))
 	{
+		MessageBox(_Hwnd,L"Error Creating Layout.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -147,6 +150,7 @@ bool ColorShaderClass::InitializeShader(ID3D11Device *_Device, HWND _Hwnd, WCHAR
 
 	if(FAILED(Result))
 	{
+		MessageBox(_Hwnd,L"Error Creating Matrix Buffer.", L"Error", MB_OK);
 		return false;
 	}
 

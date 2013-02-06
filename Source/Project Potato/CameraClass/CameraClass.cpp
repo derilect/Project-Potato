@@ -76,6 +76,7 @@ void CameraClass::Render()
 	LookAt = Position + LookAt;
 
 	D3DXMatrixLookAtLH(&m_ViewMatrix, &Position, &LookAt, &Up);
+	return;
 }
 
 void CameraClass::GetViewMatrix(D3DXMATRIX &_ViewMatrix)

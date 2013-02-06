@@ -6,5 +6,5 @@ struct PixelInputType
 
 float4 ColorPixelShader(PixelInputType _Input) : SV_TARGET
 {
-	return _Input.color;
+	return _Input.Color;
 }
