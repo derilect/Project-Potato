@@ -9,4 +9,3 @@ float4 ColorPixelShader(PixelInputType _Input) : SV_TARGET
 	return _Input.Color;
 }
 
-d
