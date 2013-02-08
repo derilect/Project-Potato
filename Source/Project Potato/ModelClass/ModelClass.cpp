@@ -4,6 +4,7 @@ ModelClass::ModelClass()
 {
 	m_VertexBuffer = 0;
 	m_VertexCount = 0;
+	m_Texture = 0;
 }
 
 ModelClass::ModelClass(const ModelClass &_Other)
@@ -14,7 +15,7 @@ ModelClass::~ModelClass()
 {
 }
 
-bool ModelClass::Initialize(ID3D11Device *_Device)
+bool ModelClass::Initialize(ID3D11Device *_Device, WCHAR *_TextureFilename)
 {
 	bool Result;
 
@@ -25,11 +26,18 @@ bool ModelClass::Initialize(ID3D11Device *_Device)
 		return false;
 	}
 
+	Result = LoadTexture(_Device, _TextureFilename);
+	if(!Result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
 void ModelClass::Shutdown()
 {
+	ReleaseTexture();
 	ShutdownBuffers();
 	return;
 }
@@ -43,6 +51,11 @@ void ModelClass::Render(ID3D11DeviceContext *_DeviceContext)
 int ModelClass::GetIndexCount()
 {
 	return m_IndexCount;
+}
+
+ID3D11ShaderResourceView * ModelClass::GetTexture()
+{
+	return m_Texture->GetTexture();
 }
 
 bool ModelClass::InitializeBuffers(ID3D11Device *Device)
@@ -71,13 +84,13 @@ bool ModelClass::InitializeBuffers(ID3D11Device *Device)
 	}
 
 	Vertices[0].Position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
-	Vertices[0].Color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	Vertices[0].Texture = D3DXVECTOR2(0.0f, 1.0f);
 
 	Vertices[1].Position = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	Vertices[1].Color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	Vertices[1].Texture = D3DXVECTOR2(0.5f, 0.0f);
 
 	Vertices[2].Position = D3DXVECTOR3(1.0f, -1.0f, 0.0f);
-	Vertices[2].Color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	Vertices[2].Texture = D3DXVECTOR2(1.0f, 1.0f);
 
 	Indices[0] = 0;
 	Indices[1] = 1;
@@ -156,5 +169,36 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext *_DeviceContext)
 	_DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	_DeviceContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	
+	return;
+}
+
+bool ModelClass::LoadTexture(ID3D11Device *_Device, WCHAR *_FileName)
+{
+	bool Result;
+
+	m_Texture = new TextureClass;
+	if(!m_Texture)
+	{
+		return false;
+	}
+
+	Result = m_Texture->Initialize(_Device, _FileName);
+	if(!Result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void ModelClass::ReleaseTexture()
+{
+	if(m_Texture)
+	{
+		m_Texture->Shutdown();
+		delete m_Texture;
+		m_Texture = 0;
+	}
+
 	return;
 }

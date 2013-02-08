@@ -5,7 +5,7 @@ GraphicsClass::GraphicsClass()
 	m_D3D = 0;
 	m_Camera = 0;
 	m_Model = 0;
-	m_ColorShader = 0;
+	m_TextureShader = 0;
 }
 
 GraphicsClass::GraphicsClass(const GraphicsClass &)
@@ -47,23 +47,23 @@ bool GraphicsClass::Initialize(int _ScreenWidth, int _ScreenHeight, HWND _Handle
 		return false;
 	}
 
-	Result = m_Model->Initialize(m_D3D->GetDevice());
+	Result = m_Model->Initialize(m_D3D->GetDevice(), L"./data/seafloor.dds");
 	if(!Result)
 	{
 		MessageBox(_Handle, L"Could not initialize Model Object.", L"Error", MB_OK);
 		return false;
 	}
 	
-	m_ColorShader = new ColorShaderClass;
-	if(!m_ColorShader)
+	m_TextureShader = new TextureShaderClass;
+	if(!m_TextureShader)
 	{
 		return false;
 	}
 	
-	Result = m_ColorShader->Initialize(m_D3D->GetDevice(), _Handle);
+	Result = m_TextureShader->Initialize(m_D3D->GetDevice(), _Handle);
 	if(!Result)
 	{
-		MessageBox(_Handle, L"Could not Initialize the color shader object.", L"Error", MB_OK);
+		MessageBox(_Handle, L"Could not Initialize the texture shader object.", L"Error", MB_OK);
 		return false;
 	}
 	return true;
@@ -71,11 +71,11 @@ bool GraphicsClass::Initialize(int _ScreenWidth, int _ScreenHeight, HWND _Handle
 
 void GraphicsClass::Shutdown()
 {
-	if(m_ColorShader)
+	if(m_TextureShader)
 	{
-		m_ColorShader->Shutdown();
-		delete m_ColorShader;
-		m_ColorShader = 0;
+		m_TextureShader->Shutdown();
+		delete m_TextureShader;
+		m_TextureShader = 0;
 	}
 
 	if(m_Model)
@@ -128,7 +128,7 @@ bool GraphicsClass::Render()
 
 	m_Model->Render(m_D3D->GetDeviceContext());
 
-	Result = m_ColorShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), WorldMatrix, ViewMatrix, ProjectionMatrix);
+	Result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), WorldMatrix, ViewMatrix, ProjectionMatrix, m_Model->GetTexture());
 	if(!Result)
 	{
 		return false;

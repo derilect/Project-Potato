@@ -1,8 +1,8 @@
 #ifndef _COLORCLASS_H
 #define _COLORCLASS_H
 
-#include <d3d11.h>
-#include <d3dx10math.h>
+#include <D3D11.h>
+#include <D3DX10math.h>
 #include <D3DX11async.h>
 #include <fstream>
 
