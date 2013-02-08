@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{97a8b904-0053-42a7-9030-33ef9bcef94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bin">
+      <UniqueIdentifier>{38fcbbde-2609-43a2-833b-8b77d3aeac08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs">
+      <UniqueIdentifier>{1b909264-6a90-4413-b132-63a1beb5020d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs\Internal">
+      <UniqueIdentifier>{bb02c750-fc5f-4b51-b587-bf5b63098f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs\External">
+      <UniqueIdentifier>{14897585-d007-456c-bc7e-663e8f4585da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{a3897b92-d238-416c-ac7f-0ac26e4834a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{a6b54d2b-546d-4e34-82d4-cfb7dc49d002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato">
+      <UniqueIdentifier>{88ba1071-d54c-4ec9-ae3e-04ab757cf671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Temp">
+      <UniqueIdentifier>{790e91a4-c67b-4b31-8d89-d24585292fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\System">
+      <UniqueIdentifier>{1995a6da-a6ec-4001-89eb-fbc58804d4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\Input">
+      <UniqueIdentifier>{a7c8ca72-43dc-4635-a017-f75fc4133863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\Graphics">
+      <UniqueIdentifier>{6148c890-3b90-4b5a-b0c9-22ce20e5ca25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\D3DClass">
+      <UniqueIdentifier>{456f60ee-d745-4ee8-950f-476f7455bbed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{b98e9a27-1386-4ae1-9775-3b08fd0951d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\ModelClass">
+      <UniqueIdentifier>{0200aeea-6986-4e16-ae0f-30ed8d5a394c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\ColorClass">
+      <UniqueIdentifier>{907c7c1a-71f2-490d-8e44-9e04b8527184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\CameraClass">
+      <UniqueIdentifier>{9913588e-299b-4da8-be46-4c4d187cad8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\TextureClass">
+      <UniqueIdentifier>{8e924b0b-0281-4c9f-9980-bb50d26f3c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\TextureShaderClass">
+      <UniqueIdentifier>{80d373c0-8031-4ae2-8326-8c678f46d6d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Project Potato\System\SystemClass.h">
+      <Filter>Source\Project Potato\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\Input\InputClass.h">
+      <Filter>Source\Project Potato\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\Graphics\GraphicsClass.h">
+      <Filter>Source\Project Potato\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\D3DClass\D3DClass.h">
+      <Filter>Source\Project Potato\D3DClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\ModelClass\ModelClass.h">
+      <Filter>Source\Project Potato\ModelClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\ColorClass\ColorClass.h">
+      <Filter>Source\Project Potato\ColorClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\CameraClass\CameraClass.h">
+      <Filter>Source\Project Potato\CameraClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\TextureClass\TextureClass.h">
+      <Filter>Source\Project Potato\TextureClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\TextureShaderClass\TextureShaderClass.h">
+      <Filter>Source\Project Potato\TextureShaderClass</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Project Potato\Main.cpp">
+      <Filter>Source\Project Potato</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\System\SystemClass.cpp">
+      <Filter>Source\Project Potato\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\Input\InputClass.cpp">
+      <Filter>Source\Project Potato\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\Graphics\GraphicsClass.cpp">
+      <Filter>Source\Project Potato\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\D3DClass\D3DClass.cpp">
+      <Filter>Source\Project Potato\D3DClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\ModelClass\ModelClass.cpp">
+      <Filter>Source\Project Potato\ModelClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\ColorClass\ColorClass.cpp">
+      <Filter>Source\Project Potato\ColorClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\CameraClass\CameraClass.cpp">
+      <Filter>Source\Project Potato\CameraClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\TextureClass\TextureClass.cpp">
+      <Filter>Source\Project Potato\TextureClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\TextureShaderClass\TextureShaderClass.cpp">
+      <Filter>Source\Project Potato\TextureShaderClass</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Game\Shaders\color.vsh">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Shaders\color.psh">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Shaders\texture.psh">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Shaders\texture.vsh">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

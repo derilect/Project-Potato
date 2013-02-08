@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Project Potato\CameraClass\CameraClass.h" />
+    <ClInclude Include="..\Project Potato\ColorClass\ColorClass.h" />
+    <ClInclude Include="..\Project Potato\D3DClass\D3DClass.h" />
+    <ClInclude Include="..\Project Potato\Graphics\GraphicsClass.h" />
+    <ClInclude Include="..\Project Potato\Input\InputClass.h" />
+    <ClInclude Include="..\Project Potato\ModelClass\ModelClass.h" />
+    <ClInclude Include="..\Project Potato\System\SystemClass.h" />
+    <ClInclude Include="..\Project Potato\TextureClass\TextureClass.h" />
+    <ClInclude Include="..\Project Potato\TextureShaderClass\TextureShaderClass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Project Potato\CameraClass\CameraClass.cpp" />
+    <ClCompile Include="..\Project Potato\ColorClass\ColorClass.cpp" />
+    <ClCompile Include="..\Project Potato\D3DClass\D3DClass.cpp" />
+    <ClCompile Include="..\Project Potato\Graphics\GraphicsClass.cpp" />
+    <ClCompile Include="..\Project Potato\Input\InputClass.cpp" />
+    <ClCompile Include="..\Project Potato\Main.cpp" />
+    <ClCompile Include="..\Project Potato\ModelClass\ModelClass.cpp" />
+    <ClCompile Include="..\Project Potato\System\SystemClass.cpp" />
+    <ClCompile Include="..\Project Potato\TextureClass\TextureClass.cpp" />
+    <ClCompile Include="..\Project Potato\TextureShaderClass\TextureShaderClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Game\Shaders\color.psh" />
+    <None Include="..\..\Game\Shaders\color.vsh" />
+    <None Include="..\..\Game\Shaders\texture.psh" />
+    <None Include="..\..\Game\Shaders\texture.vsh" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BCD4FD33-3201-4202-8CBF-8775F12FBD7A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ProjectPotato</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\Game\</OutDir>
+    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VCInstallDir)atlmfc\include;$(VCInstallDir)include;D:\Coding\DirectX SDK %28June 2010%29\Include</IncludePath>
+    <LibraryPath>D:\Coding\DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\Game\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Temp\$(ProjectName)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
