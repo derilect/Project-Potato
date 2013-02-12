@@ -58,6 +58,12 @@
     <Filter Include="Source\Project Potato\TextureShaderClass">
       <UniqueIdentifier>{80d373c0-8031-4ae2-8326-8c678f46d6d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Project Potato\LightShaderClass">
+      <UniqueIdentifier>{401d4a6a-1a78-48eb-bc9f-72d7d050e93e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Project Potato\LightClass">
+      <UniqueIdentifier>{760ddcde-6d63-4f1c-9527-df711dc2dd0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Project Potato\System\SystemClass.h">
@@ -86,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="..\Project Potato\TextureShaderClass\TextureShaderClass.h">
       <Filter>Source\Project Potato\TextureShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\LightShaderClass\LightShaderClass.h">
+      <Filter>Source\Project Potato\LightShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\LightClass\LightClass.h">
+      <Filter>Source\Project Potato\LightClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +131,12 @@
     <ClCompile Include="..\Project Potato\TextureShaderClass\TextureShaderClass.cpp">
       <Filter>Source\Project Potato\TextureShaderClass</Filter>
     </ClCompile>
+    <ClCompile Include="..\Project Potato\LightShaderClass\LightShaderClass.cpp">
+      <Filter>Source\Project Potato\LightShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\LightClass\LightClass.cpp">
+      <Filter>Source\Project Potato\LightClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Shaders\color.vsh">
@@ -131,6 +149,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\Game\Shaders\texture.vsh">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Shaders\light.psh">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Shaders\light.vsh">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

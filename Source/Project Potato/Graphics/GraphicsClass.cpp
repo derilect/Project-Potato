@@ -6,6 +6,8 @@ GraphicsClass::GraphicsClass()
 	m_Camera = 0;
 	m_Model = 0;
 	m_TextureShader = 0;
+	m_LightShader = 0;
+	m_Light = 0;
 }
 
 GraphicsClass::GraphicsClass(const GraphicsClass &)
@@ -47,30 +49,55 @@ bool GraphicsClass::Initialize(int _ScreenWidth, int _ScreenHeight, HWND _Handle
 		return false;
 	}
 
-	Result = m_Model->Initialize(m_D3D->GetDevice(), L"./data/seafloor.dds");
+	Result = m_Model->Initialize(m_D3D->GetDevice(), "./data/cube.txt", L"./data/seafloor.dds");
 	if(!Result)
 	{
 		MessageBox(_Handle, L"Could not initialize Model Object.", L"Error", MB_OK);
 		return false;
 	}
 	
-	m_TextureShader = new TextureShaderClass;
-	if(!m_TextureShader)
+
+	m_LightShader = new LightShaderClass;
+	if(!m_LightShader)
 	{
 		return false;
 	}
-	
-	Result = m_TextureShader->Initialize(m_D3D->GetDevice(), _Handle);
+
+	Result = m_LightShader->Initialize(m_D3D->GetDevice(), _Handle);
 	if(!Result)
 	{
-		MessageBox(_Handle, L"Could not Initialize the texture shader object.", L"Error", MB_OK);
+		MessageBox(_Handle, L"Could not initialize light shader object.", L"Error", MB_OK);
 		return false;
 	}
+
+	m_Light = new LightClass;
+	if(!m_Light)
+	{
+		return false;
+	}
+
+	m_Light->SetDiffuseColor(1.0f,1.0,1.0f,0.0f);
+	m_Light->SetLightDirection(0.0f,0.0f,1.0f);
+
+
 	return true;
 }
 
 void GraphicsClass::Shutdown()
 {
+	if(m_Light)
+	{
+		delete m_Light;
+		m_Light = 0;
+	}
+
+	if(m_LightShader)
+	{
+		m_LightShader->Shutdown();
+		delete m_LightShader;
+		m_LightShader = 0;
+	}
+
 	if(m_TextureShader)
 	{
 		m_TextureShader->Shutdown();
@@ -105,7 +132,16 @@ bool GraphicsClass::Frame()
 {
 	bool Result;
 
-	Result = Render();
+	static float Rotation = 0.0f;
+
+	Rotation += (float)D3DX_PI * 0.01f;
+
+	if(Rotation > 360.0f)
+	{
+		Rotation -= 360.0f;
+	}
+
+	Result = Render(Rotation);
 	if(!Result)
 	{
 		return false;
@@ -114,7 +150,7 @@ bool GraphicsClass::Frame()
 	return true;
 }
 
-bool GraphicsClass::Render()
+bool GraphicsClass::Render(float _Rotation)
 {
 	D3DXMATRIX ViewMatrix, ProjectionMatrix, WorldMatrix;
 	bool Result;
@@ -126,9 +162,11 @@ bool GraphicsClass::Render()
 	m_D3D->GetWorldMatrix(WorldMatrix);
 	m_D3D->GetProjectionMatrix(ProjectionMatrix);
 
+	D3DXMatrixRotationY(&WorldMatrix, _Rotation);
+
 	m_Model->Render(m_D3D->GetDeviceContext());
 
-	Result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), WorldMatrix, ViewMatrix, ProjectionMatrix, m_Model->GetTexture());
+	Result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), WorldMatrix, ViewMatrix, ProjectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
 	if(!Result)
 	{
 		return false;

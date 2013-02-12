@@ -16,6 +16,8 @@
     <ClInclude Include="..\Project Potato\D3DClass\D3DClass.h" />
     <ClInclude Include="..\Project Potato\Graphics\GraphicsClass.h" />
     <ClInclude Include="..\Project Potato\Input\InputClass.h" />
+    <ClInclude Include="..\Project Potato\LightClass\LightClass.h" />
+    <ClInclude Include="..\Project Potato\LightShaderClass\LightShaderClass.h" />
     <ClInclude Include="..\Project Potato\ModelClass\ModelClass.h" />
     <ClInclude Include="..\Project Potato\System\SystemClass.h" />
     <ClInclude Include="..\Project Potato\TextureClass\TextureClass.h" />
@@ -27,6 +29,8 @@
     <ClCompile Include="..\Project Potato\D3DClass\D3DClass.cpp" />
     <ClCompile Include="..\Project Potato\Graphics\GraphicsClass.cpp" />
     <ClCompile Include="..\Project Potato\Input\InputClass.cpp" />
+    <ClCompile Include="..\Project Potato\LightClass\LightClass.cpp" />
+    <ClCompile Include="..\Project Potato\LightShaderClass\LightShaderClass.cpp" />
     <ClCompile Include="..\Project Potato\Main.cpp" />
     <ClCompile Include="..\Project Potato\ModelClass\ModelClass.cpp" />
     <ClCompile Include="..\Project Potato\System\SystemClass.cpp" />
@@ -36,6 +40,8 @@
   <ItemGroup>
     <None Include="..\..\Game\Shaders\color.psh" />
     <None Include="..\..\Game\Shaders\color.vsh" />
+    <None Include="..\..\Game\Shaders\light.psh" />
+    <None Include="..\..\Game\Shaders\light.vsh" />
     <None Include="..\..\Game\Shaders\texture.psh" />
     <None Include="..\..\Game\Shaders\texture.vsh" />
   </ItemGroup>

@@ -5,6 +5,7 @@ ModelClass::ModelClass()
 	m_VertexBuffer = 0;
 	m_VertexCount = 0;
 	m_Texture = 0;
+	m_Model = 0;
 }
 
 ModelClass::ModelClass(const ModelClass &_Other)
@@ -15,9 +16,15 @@ ModelClass::~ModelClass()
 {
 }
 
-bool ModelClass::Initialize(ID3D11Device *_Device, WCHAR *_TextureFilename)
+bool ModelClass::Initialize(ID3D11Device *_Device, char *_ModelFilename, WCHAR *_TextureFilename)
 {
 	bool Result;
+
+	Result = LoadModel(_ModelFilename);
+	if(!Result)
+	{
+		return false;
+	}
 
 	Result = InitializeBuffers(_Device);
 	
@@ -39,6 +46,7 @@ void ModelClass::Shutdown()
 {
 	ReleaseTexture();
 	ShutdownBuffers();
+	ReleaseModel();
 	return;
 }
 
@@ -66,10 +74,6 @@ bool ModelClass::InitializeBuffers(ID3D11Device *Device)
 	D3D11_SUBRESOURCE_DATA VertexData, IndexData;
 	HRESULT Result;
 
-	m_VertexCount = 3;
-
-	m_IndexCount = 3;
-
 	Vertices = new VertexType[m_VertexCount];
 
 	if(!Vertices)
@@ -83,18 +87,32 @@ bool ModelClass::InitializeBuffers(ID3D11Device *Device)
 		return false;
 	}
 
+	for(int Index = 0; Index < m_VertexCount; Index++)
+	{
+		Vertices[Index].Position = D3DXVECTOR3(m_Model[Index].X, m_Model[Index].Y, m_Model[Index].Z);
+		Vertices[Index].Texture = D3DXVECTOR2(m_Model[Index].Tu, m_Model[Index].Tv);
+		Vertices[Index].Normal = D3DXVECTOR3(m_Model[Index].Nx, m_Model[Index].Ny, m_Model[Index].Nz);
+
+		Indices[Index] = Index;
+	}
+
+	/*
 	Vertices[0].Position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
 	Vertices[0].Texture = D3DXVECTOR2(0.0f, 1.0f);
+	Vertices[0].Normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 
 	Vertices[1].Position = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	Vertices[1].Texture = D3DXVECTOR2(0.5f, 0.0f);
+	Vertices[1].Normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 
 	Vertices[2].Position = D3DXVECTOR3(1.0f, -1.0f, 0.0f);
 	Vertices[2].Texture = D3DXVECTOR2(1.0f, 1.0f);
+	Vertices[2].Normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 
 	Indices[0] = 0;
 	Indices[1] = 1;
 	Indices[2] = 2;
+	*/
 
 	VertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	VertexBufferDesc.ByteWidth = sizeof(VertexType) * m_VertexCount;
@@ -198,6 +216,65 @@ void ModelClass::ReleaseTexture()
 		m_Texture->Shutdown();
 		delete m_Texture;
 		m_Texture = 0;
+	}
+
+	return;
+}
+
+bool ModelClass::LoadModel(char *_ModelFilename)
+{
+	ifstream Fin;
+	char Input;
+	int I;
+
+	Fin.open(_ModelFilename);
+
+	if(Fin.fail())
+	{
+		return false;
+	}
+
+	Fin.get(Input);;
+	while(Input !=':')
+	{
+		Fin.get(Input);
+	}
+
+	Fin >> m_VertexCount;
+
+	m_IndexCount = m_VertexCount;
+	m_Model = new ModelType[m_VertexCount];
+	if(!m_Model)
+	{
+		return false;
+	}
+
+	Fin.get(Input);
+	while(Input !=':')
+	{
+		Fin.get(Input);
+	}
+	Fin.get(Input);
+	Fin.get(Input);
+
+	for(I=0; I < m_VertexCount; I++)
+	{
+		Fin >> m_Model[I].X >> m_Model[I].Y >> m_Model[I].Z;
+		Fin >> m_Model[I].Tu >> m_Model[I].Tv ;
+		Fin >> m_Model[I].Nx>> m_Model[I].Ny >> m_Model[I].Nz;
+	}
+
+	Fin.close();
+
+	return true;
+}
+
+void ModelClass::ReleaseModel()
+{
+	if(m_Model)
+	{
+		delete [] m_Model;
+		m_Model = 0;
 	}
 
 	return;

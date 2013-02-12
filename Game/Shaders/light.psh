@@ -1,0 +1,33 @@
+Texture2D ShaderTexture;
+SamplerState SampleType;
+
+cbuffer LightBuffer
+{
+	float4 DiffuseColor;
+	float3 LightDirection;
+	float Padding;
+};
+
+struct PixelInputType
+{
+	float4 Position : SV_POSITION;
+	float2 TexCoords : TEXCOORD0;
+	float3 Normal : NORMAL;
+};
+
+float4 LightPixelShader(PixelInputType _Input) : SV_TARGET
+{
+	float4 TextureColor;
+	float3 LightDir;
+	float LightIntensity;
+	float4 Color;
+
+	TextureColor = ShaderTexture.Sample(SampleType, _Input.TexCoords);
+	LightDir = -LightDirection;
+	LightIntensity = saturate(dot(_Input.Normal, LightDir));
+
+	Color = saturate(DiffuseColor * LightIntensity);
+	Color = Color * TextureColor;
+
+	return Color;
+}
