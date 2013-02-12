@@ -78,7 +78,10 @@ bool GraphicsClass::Initialize(int _ScreenWidth, int _ScreenHeight, HWND _Handle
 
 	m_Light->SetDiffuseColor(1.0f,1.0,1.0f,0.0f);
 	m_Light->SetLightDirection(0.0f,0.0f,1.0f);
-
+	m_Light->SetAmbientColor(0.15f,0.15f,0.15f,1.0f);
+	m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->SetSpecularPower(32.0f);
+	
 
 	return true;
 }
@@ -134,7 +137,7 @@ bool GraphicsClass::Frame()
 
 	static float Rotation = 0.0f;
 
-	Rotation += (float)D3DX_PI * 0.01f;
+	Rotation += (float)D3DX_PI * 0.001f;
 
 	if(Rotation > 360.0f)
 	{
@@ -166,7 +169,8 @@ bool GraphicsClass::Render(float _Rotation)
 
 	m_Model->Render(m_D3D->GetDeviceContext());
 
-	Result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), WorldMatrix, ViewMatrix, ProjectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
+	Result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), WorldMatrix, ViewMatrix, ProjectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(),m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(), 
+		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 	if(!Result)
 	{
 		return false;

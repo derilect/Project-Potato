@@ -3,9 +3,11 @@ SamplerState SampleType;
 
 cbuffer LightBuffer
 {
+	float4 AmbientColor;
 	float4 DiffuseColor;
 	float3 LightDirection;
-	float Padding;
+	float SpecularPower;
+	float3 SpecularColor;
 };
 
 struct PixelInputType
@@ -13,6 +15,7 @@ struct PixelInputType
 	float4 Position : SV_POSITION;
 	float2 TexCoords : TEXCOORD0;
 	float3 Normal : NORMAL;
+	float3 ViewDirection : TEXCOORD1;
 };
 
 float4 LightPixelShader(PixelInputType _Input) : SV_TARGET
@@ -21,13 +24,28 @@ float4 LightPixelShader(PixelInputType _Input) : SV_TARGET
 	float3 LightDir;
 	float LightIntensity;
 	float4 Color;
+	float3 Reflection;
+	float4 Specular;
 
 	TextureColor = ShaderTexture.Sample(SampleType, _Input.TexCoords);
+	Color = AmbientColor;
+
+	Specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
 	LightDir = -LightDirection;
 	LightIntensity = saturate(dot(_Input.Normal, LightDir));
 
-	Color = saturate(DiffuseColor * LightIntensity);
+	if(LightIntensity > 0.0f)
+	{
+		Color += (DiffuseColor * LightIntensity);
+		Color = saturate(Color);
+		Reflection = normalize(2 * LightIntensity * _Input.Normal - LightDirection);
+		Specular = pow(saturate(dot(Reflection, _Input.ViewDirection)), SpecularPower);
+
+	}
+
 	Color = Color * TextureColor;
+	Color = saturate(Color + Specular);
 
 	return Color;
 }
