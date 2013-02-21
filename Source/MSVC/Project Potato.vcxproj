@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Project Potato\BitmapClass\BitmapClass.h" />
     <ClInclude Include="..\Project Potato\CameraClass\CameraClass.h" />
     <ClInclude Include="..\Project Potato\ColorClass\ColorClass.h" />
     <ClInclude Include="..\Project Potato\D3DClass\D3DClass.h" />
@@ -24,6 +25,7 @@
     <ClInclude Include="..\Project Potato\TextureShaderClass\TextureShaderClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Project Potato\BitmapClass\BitmapClass.cpp" />
     <ClCompile Include="..\Project Potato\CameraClass\CameraClass.cpp" />
     <ClCompile Include="..\Project Potato\ColorClass\ColorClass.cpp" />
     <ClCompile Include="..\Project Potato\D3DClass\D3DClass.cpp" />

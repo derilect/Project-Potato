@@ -64,6 +64,9 @@
     <Filter Include="Source\Project Potato\LightClass">
       <UniqueIdentifier>{760ddcde-6d63-4f1c-9527-df711dc2dd0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Project Potato\BitmapClass">
+      <UniqueIdentifier>{3076841f-3388-4c96-b0da-a541e172ce25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Project Potato\System\SystemClass.h">
@@ -98,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="..\Project Potato\LightClass\LightClass.h">
       <Filter>Source\Project Potato\LightClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Project Potato\BitmapClass\BitmapClass.h">
+      <Filter>Source\Project Potato\BitmapClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="..\Project Potato\LightClass\LightClass.cpp">
       <Filter>Source\Project Potato\LightClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project Potato\BitmapClass\BitmapClass.cpp">
+      <Filter>Source\Project Potato\BitmapClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

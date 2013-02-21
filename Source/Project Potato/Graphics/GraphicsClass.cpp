@@ -8,6 +8,7 @@ GraphicsClass::GraphicsClass()
 	m_TextureShader = 0;
 	m_LightShader = 0;
 	m_Light = 0;
+	m_Bitmap = 0;
 }
 
 GraphicsClass::GraphicsClass(const GraphicsClass &)
@@ -81,13 +82,52 @@ bool GraphicsClass::Initialize(int _ScreenWidth, int _ScreenHeight, HWND _Handle
 	m_Light->SetAmbientColor(0.15f,0.15f,0.15f,1.0f);
 	m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->SetSpecularPower(32.0f);
-	
+
+	m_Bitmap = new BitmapClass;
+	if(!m_Bitmap)
+	{
+		return false;
+	}
+
+	Result = m_Bitmap->Initialize(m_D3D->GetDevice(), _ScreenWidth, _ScreenHeight, L"./data/seafloor.dds", 100, 100);
+	if(!Result)
+	{
+		MessageBox(_Handle, L"Could not initialize Bitmap Object.", L"Error", MB_OK);
+		return false;
+	}
+
+	m_TextureShader = new TextureShaderClass;
+	if(!m_TextureShader)
+	{
+		return false;
+	}
+
+	Result = m_TextureShader->Initialize(m_D3D->GetDevice(), _Handle);
+	if(!Result)
+	{
+		return false;
+	}
+
 
 	return true;
 }
 
 void GraphicsClass::Shutdown()
 {
+	if(m_TextureShader)
+	{
+		m_TextureShader->Shutdown();
+		delete m_TextureShader;
+		m_TextureShader = 0;
+	}
+
+	if(m_Bitmap)
+	{
+		m_Bitmap->Shutdown();
+		delete m_Bitmap;
+		m_Bitmap = 0;
+	}
+
 	if(m_Light)
 	{
 		delete m_Light;
@@ -101,12 +141,6 @@ void GraphicsClass::Shutdown()
 		m_LightShader = 0;
 	}
 
-	if(m_TextureShader)
-	{
-		m_TextureShader->Shutdown();
-		delete m_TextureShader;
-		m_TextureShader = 0;
-	}
 
 	if(m_Model)
 	{
@@ -155,7 +189,7 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float _Rotation)
 {
-	D3DXMATRIX ViewMatrix, ProjectionMatrix, WorldMatrix;
+	D3DXMATRIX ViewMatrix, ProjectionMatrix, WorldMatrix, OrthoMatrix;
 	bool Result;
 
 	m_D3D->BeginScene(0.0f,0.0f,0.0f,1.0f);
@@ -164,7 +198,24 @@ bool GraphicsClass::Render(float _Rotation)
 	m_Camera->GetViewMatrix(ViewMatrix);
 	m_D3D->GetWorldMatrix(WorldMatrix);
 	m_D3D->GetProjectionMatrix(ProjectionMatrix);
+	m_D3D->GetOrthoMatrix(OrthoMatrix);
 
+	m_D3D->TurnZBufferOff();
+
+	Result = m_Bitmap->Render(m_D3D->GetDeviceContext(), 256, 256);
+	if(!Result)
+	{
+		return false;
+	}
+
+	Result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Bitmap->GetIndexCount(), WorldMatrix, ViewMatrix, OrthoMatrix, m_Bitmap->GetTexture());
+	if(!Result)
+	{
+		return false;
+	}
+
+	m_D3D->TurnZBufferOn();
+	/*
 	D3DXMatrixRotationY(&WorldMatrix, _Rotation);
 
 	m_Model->Render(m_D3D->GetDeviceContext());
@@ -175,7 +226,7 @@ bool GraphicsClass::Render(float _Rotation)
 	{
 		return false;
 	}
-
+	*/
 	m_D3D->EndScene();
 
 	return true;
